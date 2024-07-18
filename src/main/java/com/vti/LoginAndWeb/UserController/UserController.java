@@ -4,6 +4,8 @@ import com.vti.LoginAndWeb.Form.UserCreateForm;
 import com.vti.LoginAndWeb.Service.UserService;
 import com.vti.LoginAndWeb.dto.UserDto;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,7 +23,7 @@ public class UserController {
         return userService.create(form);
     }
     @GetMapping("/api/v1/users")
-    public List<UserDto> findAll(){
-        return userService.findAll();
+    public Page<UserDto> findAll(Pageable pageable){
+        return userService.findAll(pageable);
     }
 }

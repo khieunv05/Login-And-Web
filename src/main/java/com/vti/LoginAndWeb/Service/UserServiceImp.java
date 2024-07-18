@@ -6,6 +6,8 @@ import com.vti.LoginAndWeb.Repository.UserRepository;
 import com.vti.LoginAndWeb.dto.UserDto;
 import com.vti.LoginAndWeb.mapper.UserMapper;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -13,8 +15,9 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class UserServiceImp implements UserService{
+public class UserServiceImp implements UserService {
     private final UserRepository userRepository;
+
     @Override
     public UserDto create(UserCreateForm form) {
         User user = UserMapper.map(form);
@@ -23,12 +26,7 @@ public class UserServiceImp implements UserService{
     }
 
     @Override
-    public List<UserDto> findAll() {
-         var users = userRepository.findAll();
-         var dtos = new ArrayList<UserDto>();
-        for (User user : users) {
-            dtos.add(UserMapper.map(user));
-        }
-        return dtos;
+    public Page<UserDto> findAll(Pageable pageable) {
+        return userRepository.findAll(pageable).map(UserMapper::map);
     }
 }
