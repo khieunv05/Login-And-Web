@@ -2,6 +2,7 @@ package com.vti.LoginAndWeb.Service;
 
 import com.vti.LoginAndWeb.Entity.User;
 import com.vti.LoginAndWeb.Form.UserCreateForm;
+import com.vti.LoginAndWeb.Form.UserUpdateForm;
 import com.vti.LoginAndWeb.Repository.UserRepository;
 import com.vti.LoginAndWeb.dto.UserDto;
 import com.vti.LoginAndWeb.mapper.UserMapper;
@@ -29,4 +30,13 @@ public class UserServiceImp implements UserService {
     public Page<UserDto> findAll(Pageable pageable) {
         return userRepository.findAll(pageable).map(UserMapper::map);
     }
+
+    @Override
+    public UserDto update(UserUpdateForm form, Long id) {
+        var user = UserMapper.map(form);
+        user.setId(id);
+        var savedUser = userRepository.save(user);
+        return UserMapper.map(savedUser);
+    }
+
 }
