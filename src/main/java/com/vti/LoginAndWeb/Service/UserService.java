@@ -17,4 +17,6 @@ public interface UserService {
     UserDto update(UserUpdateForm form, Long id);
 
     void delete(Long id);
+
+    UserDto findById(Long id);
 }

@@ -24,6 +24,11 @@ public class UserController {
     public Page<UserDto> findAll(Pageable pageable){
         return userService.findAll(pageable);
     }
+
+    @GetMapping("/api/v1/users/{id}")
+    public UserDto findById(@PathVariable Long id){
+        return userService.findById(id);
+    }
     @PutMapping("/api/v1/users/{id}")
     public  UserDto update(@RequestBody UserUpdateForm form,@PathVariable("id") Long id){
         return userService.update(form,id);
@@ -32,4 +37,5 @@ public class UserController {
     public void delete(@PathVariable("id") Long id){
         userService.delete(id);
     }
+
 }

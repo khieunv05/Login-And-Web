@@ -44,4 +44,10 @@ public class UserServiceImp implements UserService {
          userRepository.deleteById(id);
     }
 
+    @Override
+    public UserDto findById(Long id) {
+        var user = userRepository.findById(id).get();
+        return UserMapper.map(user);
+    }
+
 }
