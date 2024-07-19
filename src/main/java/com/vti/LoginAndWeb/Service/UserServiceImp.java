@@ -39,4 +39,9 @@ public class UserServiceImp implements UserService {
         return UserMapper.map(savedUser);
     }
 
+    @Override
+    public void delete(Long id) {
+         userRepository.deleteById(id);
+    }
+
 }

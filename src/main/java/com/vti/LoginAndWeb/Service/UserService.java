@@ -15,4 +15,6 @@ public interface UserService {
     Page<UserDto> findAll(Pageable pageable);
 
     UserDto update(UserUpdateForm form, Long id);
+
+    void delete(Long id);
 }

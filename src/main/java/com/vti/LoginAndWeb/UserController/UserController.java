@@ -28,4 +28,8 @@ public class UserController {
     public  UserDto update(@RequestBody UserUpdateForm form,@PathVariable("id") Long id){
         return userService.update(form,id);
     }
+    @DeleteMapping("/api/v1/users/{id}")
+    public void delete(@PathVariable("id") Long id){
+        userService.delete(id);
+    }
 }
