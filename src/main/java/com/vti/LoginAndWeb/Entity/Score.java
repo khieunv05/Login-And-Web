@@ -19,7 +19,7 @@ public class Score {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "subject_name",nullable = false,unique = true)
+    @Column(name = "subject_name",nullable = false)
     private String subjectName;
 
     @Column(name = "score")
@@ -32,4 +32,8 @@ public class Score {
     @Column(name = "updated_at")
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id",referencedColumnName = "id",nullable = false)
+    private User user;
 }

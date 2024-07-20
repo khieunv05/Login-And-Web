@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.*;
 
 public class ScoreController {
     private final ScoreService scoreService;
-    @PostMapping("/api/v1/scores")
-    public ScoreDto create(@RequestBody ScoreCreateForm form){
-        return scoreService.create(form);
+    @PostMapping("/api/v1/{userId}/scores")
+    public ScoreDto create(@RequestBody ScoreCreateForm form,@PathVariable("userId") Long id){
+        return scoreService.create(form,id);
     }
 
-    @GetMapping("/api/v1/scores")
-    public Page<ScoreDto> findAll(Pageable pageable){
-        return scoreService.findAll(pageable);
+    @GetMapping("/api/v1/{userId}/scores")
+    public Page<ScoreDto> findAllByUserId(Pageable pageable,@PathVariable("userId") Long id){
+        return scoreService.findAllByUserId(pageable,id);
     }
 
     @PutMapping("/api/v1/scores/{id}")

@@ -8,9 +8,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface ScoreService {
-    ScoreDto create(ScoreCreateForm form);
+    ScoreDto create(ScoreCreateForm form,Long id);
 
-    Page<ScoreDto> findAll(Pageable pageable);
+    Page<ScoreDto> findAllByUserId(Pageable pageable,Long id);
 
     ScoreDto update(ScoreUpdateForm form,Long id);
 }

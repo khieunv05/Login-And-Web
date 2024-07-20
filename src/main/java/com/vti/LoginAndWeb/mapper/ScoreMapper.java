@@ -26,4 +26,9 @@ public class ScoreMapper {
         score.setScore(form.getScore());
         return score;
     }
+    public static Score map(ScoreUpdateForm form, Score score){
+        score.setSubjectName(form.getName_subject());
+        score.setScore(form.getScore());
+        return score;
+    }
 }
