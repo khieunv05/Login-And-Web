@@ -2,6 +2,7 @@ package com.vti.LoginAndWeb.Service;
 
 import com.vti.LoginAndWeb.Entity.Score;
 import com.vti.LoginAndWeb.Form.ScoreCreateForm;
+import com.vti.LoginAndWeb.Form.ScoreUpdateForm;
 import com.vti.LoginAndWeb.Repository.ScoreRepository;
 import com.vti.LoginAndWeb.dto.ScoreDto;
 import com.vti.LoginAndWeb.mapper.ScoreMapper;
@@ -25,4 +26,14 @@ public class ScoreServiceImp implements ScoreService{
     public Page<ScoreDto> findAll(Pageable pageable) {
         return scoreRepository.findAll(pageable).map(ScoreMapper::map);
     }
+
+    @Override
+    public ScoreDto update(ScoreUpdateForm form, Long id) {
+        var score = ScoreMapper.map(form);
+        score.setId(id);
+        var savedScore = scoreRepository.save(score);
+        return ScoreMapper.map(savedScore);
+    }
+
+
 }
