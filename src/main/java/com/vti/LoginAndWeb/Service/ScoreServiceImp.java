@@ -2,11 +2,13 @@ package com.vti.LoginAndWeb.Service;
 
 import com.vti.LoginAndWeb.Entity.Score;
 import com.vti.LoginAndWeb.Form.ScoreCreateForm;
+import com.vti.LoginAndWeb.Form.ScoreFilterForm;
 import com.vti.LoginAndWeb.Form.ScoreUpdateForm;
 import com.vti.LoginAndWeb.Repository.ScoreRepository;
 import com.vti.LoginAndWeb.Repository.UserRepository;
 import com.vti.LoginAndWeb.dto.ScoreDto;
 import com.vti.LoginAndWeb.mapper.ScoreMapper;
+import com.vti.LoginAndWeb.specification.ScoreSpecification;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,8 +28,14 @@ public class ScoreServiceImp implements ScoreService{
     }
 
     @Override
-    public Page<ScoreDto> findAllByUserId(Pageable pageable,Long id) {
+    public Page<ScoreDto> findByUserId(Pageable pageable, Long id) {
         return scoreRepository.findByUserId(id,pageable).map(ScoreMapper::map);
+    }
+
+    @Override
+    public Page<ScoreDto> findAll(ScoreFilterForm form,Pageable pageable) {
+        var spec = ScoreSpecification.spec(form);
+        return scoreRepository.findAll(spec,pageable).map(ScoreMapper::map);
     }
 
     @Override

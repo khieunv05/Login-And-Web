@@ -1,12 +1,15 @@
 package com.vti.LoginAndWeb.UserController;
 
+import com.vti.LoginAndWeb.Entity.Score;
 import com.vti.LoginAndWeb.Form.ScoreCreateForm;
+import com.vti.LoginAndWeb.Form.ScoreFilterForm;
 import com.vti.LoginAndWeb.Form.ScoreUpdateForm;
 import com.vti.LoginAndWeb.Service.ScoreService;
 import com.vti.LoginAndWeb.dto.ScoreDto;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -20,8 +23,12 @@ public class ScoreController {
     }
 
     @GetMapping("/api/v1/{userId}/scores")
-    public Page<ScoreDto> findAllByUserId(Pageable pageable,@PathVariable("userId") Long id){
-        return scoreService.findAllByUserId(pageable,id);
+    public Page<ScoreDto> findByUserId(Pageable pageable, @PathVariable("userId") Long id){
+        return scoreService.findByUserId(pageable,id);
+    }
+    @GetMapping("/api/v1/scores")
+    public Page<ScoreDto> findAll(ScoreFilterForm form,Pageable pageable){
+        return scoreService.findAll(form,pageable);
     }
 
     @PutMapping("/api/v1/scores/{id}")
