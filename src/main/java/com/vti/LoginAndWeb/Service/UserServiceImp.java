@@ -2,13 +2,16 @@ package com.vti.LoginAndWeb.Service;
 
 import com.vti.LoginAndWeb.Entity.User;
 import com.vti.LoginAndWeb.Form.UserCreateForm;
+import com.vti.LoginAndWeb.Form.UserFilterForm;
 import com.vti.LoginAndWeb.Form.UserUpdateForm;
 import com.vti.LoginAndWeb.Repository.UserRepository;
 import com.vti.LoginAndWeb.dto.UserDto;
 import com.vti.LoginAndWeb.mapper.UserMapper;
+import com.vti.LoginAndWeb.specification.UserSpecification;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,8 +31,9 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public Page<UserDto> findAll(Pageable pageable) {
-        return userRepository.findAll(pageable).map(UserMapper::map);
+    public Page<UserDto> findAll(UserFilterForm form, Pageable pageable) {
+        var spec = UserSpecification.spec(form);
+        return userRepository.findAll(spec,pageable).map(UserMapper::map);
     }
 
     @Override

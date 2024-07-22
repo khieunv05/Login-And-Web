@@ -1,6 +1,7 @@
 package com.vti.LoginAndWeb.UserController;
 
 import com.vti.LoginAndWeb.Form.UserCreateForm;
+import com.vti.LoginAndWeb.Form.UserFilterForm;
 import com.vti.LoginAndWeb.Form.UserUpdateForm;
 import com.vti.LoginAndWeb.Service.UserService;
 import com.vti.LoginAndWeb.dto.UserDto;
@@ -21,8 +22,8 @@ public class UserController {
         return userService.create(form);
     }
     @GetMapping("/api/v1/users")
-    public Page<UserDto> findAll(Pageable pageable){
-        return userService.findAll(pageable);
+    public Page<UserDto> findAll(UserFilterForm form,Pageable pageable){
+        return userService.findAll(form,pageable);
     }
 
     @GetMapping("/api/v1/users/{id}")
