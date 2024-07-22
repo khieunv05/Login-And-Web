@@ -38,4 +38,8 @@ public class UserController {
         userService.delete(id);
     }
 
+    @DeleteMapping("/api/v1/users/username/{user_name}")
+    public void deleteByUsername(@PathVariable("user_name") String username){
+         userService.deleteByUsername(username);
+    }
 }

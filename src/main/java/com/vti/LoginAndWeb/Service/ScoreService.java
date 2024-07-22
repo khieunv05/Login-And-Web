@@ -13,4 +13,5 @@ public interface ScoreService {
     Page<ScoreDto> findAllByUserId(Pageable pageable,Long id);
 
     ScoreDto update(ScoreUpdateForm form,Long id);
+
 }
