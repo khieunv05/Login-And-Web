@@ -20,11 +20,8 @@ public class UserMapper {
         userDto.setUpdatedAt(user.getUpdatedAt());
         return userDto;
     }
-    public static User map(UserUpdateForm form){
-        User user = new User();
-        user.setUsername(form.getUsername());
+    public static User map(UserUpdateForm form,User user){
         user.setPassword(form.getPassword());
-        user.setCreatedAt(form.getCreatedAt());
         return user;
     }
 

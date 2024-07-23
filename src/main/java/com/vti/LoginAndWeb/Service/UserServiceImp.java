@@ -38,9 +38,9 @@ public class UserServiceImp implements UserService {
 
     @Override
     public UserDto update(UserUpdateForm form, Long id) {
-        var user = UserMapper.map(form);
-        user.setId(id);
-        var savedUser = userRepository.save(user);
+        var user = userRepository.findById(id).get();
+        var newUser = UserMapper.map(form,user);
+        var savedUser = userRepository.save(newUser);
         return UserMapper.map(savedUser);
     }
 
