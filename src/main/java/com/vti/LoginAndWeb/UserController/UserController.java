@@ -5,6 +5,7 @@ import com.vti.LoginAndWeb.Form.UserFilterForm;
 import com.vti.LoginAndWeb.Form.UserUpdateForm;
 import com.vti.LoginAndWeb.Service.UserService;
 import com.vti.LoginAndWeb.dto.UserDto;
+import com.vti.LoginAndWeb.validation.UserIdExists;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -29,7 +30,7 @@ public class UserController {
     }
 
     @GetMapping("/api/v1/users/{id}")
-    public UserDto findById(@PathVariable Long id){
+    public UserDto findById(@PathVariable @UserIdExists Long id){
         return userService.findById(id);
     }
     @PutMapping("/api/v1/users/{id}")
