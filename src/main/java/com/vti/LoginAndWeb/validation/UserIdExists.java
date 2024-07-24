@@ -14,7 +14,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.PARAMETER)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface UserIdExists {
-    String message() default "User Id is not exists";
+    String message() default "{user.id.Exists.messages}";
 
     Class<?>[] groups() default {};
 

@@ -8,8 +8,8 @@ import org.hibernate.validator.constraints.Length;
 @Getter
 @Setter
 public class UserCreateForm {
-    @NotBlank
-    @Length(max = 50)
+    @NotBlank(message = "{user.id.NotBlank.messages}")
+    @Length(max = 50,message = "{user.id.Length.messages}")
     private String username;
     @NotBlank
     @Length(max = 100)
