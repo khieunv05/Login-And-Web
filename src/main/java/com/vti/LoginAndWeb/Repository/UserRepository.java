@@ -9,4 +9,6 @@ import org.springframework.data.jpa.repository.Modifying;
 public interface UserRepository extends JpaRepository<User,Long>, JpaSpecificationExecutor<User> {
     @Modifying
     void deleteByUsername(String username);
+
+    boolean existsByUsername(String username);
 }

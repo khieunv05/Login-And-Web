@@ -6,6 +6,7 @@ import com.vti.LoginAndWeb.Form.UserUpdateForm;
 import com.vti.LoginAndWeb.Service.UserService;
 import com.vti.LoginAndWeb.dto.UserDto;
 import com.vti.LoginAndWeb.validation.UserIdExists;
+import com.vti.LoginAndWeb.validation.UsernameNotExists;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
