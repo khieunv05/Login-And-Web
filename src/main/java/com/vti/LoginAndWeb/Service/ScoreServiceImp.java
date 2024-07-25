@@ -46,5 +46,11 @@ public class ScoreServiceImp implements ScoreService{
         return ScoreMapper.map(savedScore);
     }
 
+    @Override
+    public ScoreDto findById(Long id) {
+        var score = scoreRepository.findById(id).get();
+        return ScoreMapper.map(score);
+    }
+
 
 }

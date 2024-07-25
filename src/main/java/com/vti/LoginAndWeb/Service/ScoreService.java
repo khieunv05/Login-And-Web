@@ -18,4 +18,6 @@ public interface ScoreService {
 
     ScoreDto update(ScoreUpdateForm form,Long id);
 
+    ScoreDto findById(Long id);
+
 }

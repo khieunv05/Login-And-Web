@@ -12,6 +12,6 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import java.util.List;
 
-public interface ScoreRepository extends JpaRepository<Score,Long>, JpaSpecificationExecutor<Score> {
+public interface ScoreRepository extends JpaRepository<Score, Long>, JpaSpecificationExecutor<Score> {
     Page<Score> findByUserId(Long id, Pageable pageable);
 }

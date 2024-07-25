@@ -9,12 +9,12 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Constraint(
-        validatedBy = {UserIdExistsValidator.class}
+        validatedBy = {UsernameNotExistsValidator.class}
 )
-@Target(ElementType.PARAMETER)
+@Target({ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE, ElementType.CONSTRUCTOR, ElementType.PARAMETER, ElementType.TYPE_USE})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface UserIdExists {
-    String message() default "{user.id.Exists.messages}";
+public @interface UsernameNotExists {
+    String message() default "{user.name.NotExists.messages}";
 
     Class<?>[] groups() default {};
 

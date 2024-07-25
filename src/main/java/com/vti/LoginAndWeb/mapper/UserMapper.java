@@ -14,11 +14,12 @@ public class UserMapper {
     }
     public static UserDto map(User user){
         UserDto userDto = new UserDto();
+        userDto.setId(user.getId());
         userDto.setUsername(user.getUsername());
         userDto.setPassword(user.getPassword());
         userDto.setCreatedAt(user.getCreatedAt());
         userDto.setUpdatedAt(user.getUpdatedAt());
-        return userDto;
+        return userDto.withSelfRel();
     }
     public static User map(UserUpdateForm form,User user){
         user.setPassword(form.getPassword());
