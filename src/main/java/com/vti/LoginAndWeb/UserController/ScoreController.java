@@ -34,8 +34,14 @@ public class ScoreController {
         return scoreService.findAll(form,pageable);
     }
 
+    @GetMapping("/api/v1/score/{id}")
+    public ScoreDto findById(@PathVariable("id") Long id){
+        return scoreService.findById(id);
+    }
     @PutMapping("/api/v1/scores/{id}")
     public ScoreDto update(@RequestBody @Valid ScoreUpdateForm form,@PathVariable Long id){
         return scoreService.update(form,id);
     }
+
+
 }

@@ -18,7 +18,8 @@ public class ScoreMapper {
         scoreDto.setScore(score.getScore());
         scoreDto.setCreatedAt(score.getCreatedAt());
         scoreDto.setUpdatedAt(score.getUpdatedAt());
-        return scoreDto;
+        scoreDto.setId(score.getId());
+        return scoreDto.withSelfRel();
     }
     public static Score map(ScoreUpdateForm form){
         var score = new Score();

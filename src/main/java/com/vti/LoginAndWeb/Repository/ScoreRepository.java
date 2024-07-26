@@ -14,4 +14,5 @@ import java.util.List;
 
 public interface ScoreRepository extends JpaRepository<Score,Long>, JpaSpecificationExecutor<Score> {
     Page<Score> findByUserId(Long id, Pageable pageable);
+
 }
