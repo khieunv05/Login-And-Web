@@ -14,6 +14,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 @Setter
 public class UserDto extends RepresentationModel<UserDto> {
     private Long id;
+
     private String username;
 
     private String password;

@@ -6,6 +6,7 @@ import com.vti.LoginAndWeb.Form.ScoreFilterForm;
 import com.vti.LoginAndWeb.Form.ScoreUpdateForm;
 import com.vti.LoginAndWeb.Service.ScoreService;
 import com.vti.LoginAndWeb.dto.ScoreDto;
+import com.vti.LoginAndWeb.validation.UserIdExists;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -21,14 +22,15 @@ import org.springframework.web.bind.annotation.*;
 public class ScoreController {
     private final ScoreService scoreService;
     @PostMapping("/api/v1/{userId}/scores")
-    public ScoreDto create(@RequestBody @Valid ScoreCreateForm form, @PathVariable("userId") Long id){
+    public ScoreDto create(@RequestBody @Valid ScoreCreateForm form, @PathVariable("userId")  Long id){
         return scoreService.create(form,id);
     }
 
     @GetMapping("/api/v1/{userId}/scores")
-    public Page<ScoreDto> findByUserId(Pageable pageable, @PathVariable("userId") Long id){
+    public Page<ScoreDto> findByUserId(Pageable pageable, @PathVariable("userId")  Long id){
         return scoreService.findByUserId(pageable,id);
     }
+
     @GetMapping("/api/v1/scores")
     public Page<ScoreDto> findAll(ScoreFilterForm form,Pageable pageable){
         return scoreService.findAll(form,pageable);
@@ -39,7 +41,7 @@ public class ScoreController {
         return scoreService.findById(id);
     }
     @PutMapping("/api/v1/scores/{id}")
-    public ScoreDto update(@RequestBody @Valid ScoreUpdateForm form,@PathVariable Long id){
+    public ScoreDto update(@RequestBody @Valid ScoreUpdateForm form,@PathVariable  Long id){
         return scoreService.update(form,id);
     }
 

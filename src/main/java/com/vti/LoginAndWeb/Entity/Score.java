@@ -19,7 +19,7 @@ public class Score {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "subject_name",nullable = false)
+    @Column(name = "subject_name")
     private String subjectName;
 
     @Column(name = "score")
@@ -36,4 +36,7 @@ public class Score {
     @ManyToOne
     @JoinColumn(name = "user_id",referencedColumnName = "id",nullable = false)
     private User user;
+
+
+
 }

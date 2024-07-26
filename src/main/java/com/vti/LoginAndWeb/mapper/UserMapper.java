@@ -14,6 +14,7 @@ public class UserMapper {
     }
     public static UserDto map(User user){
         UserDto userDto = new UserDto();
+        userDto.setId(user.getId());
         userDto.setUsername(user.getUsername());
         userDto.setId(user.getId());
         userDto.setPassword(user.getPassword());

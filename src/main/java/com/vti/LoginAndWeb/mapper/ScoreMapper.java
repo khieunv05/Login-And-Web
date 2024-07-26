@@ -10,10 +10,12 @@ public class ScoreMapper {
         var score = new Score();
         score.setSubjectName(form.getName_subject());
         score.setScore(form.getScore());
+        score.setScore(form.getScore());
         return score;
     }
     public static ScoreDto map(Score score){
         var scoreDto = new ScoreDto();
+        scoreDto.setId(score.getId());
         scoreDto.setSubjectName(score.getSubjectName());
         scoreDto.setScore(score.getScore());
         scoreDto.setCreatedAt(score.getCreatedAt());
@@ -25,10 +27,12 @@ public class ScoreMapper {
         var score = new Score();
         score.setSubjectName(form.getName_subject());
         score.setScore(form.getScore());
+        score.setScore(form.getScore());
         return score;
     }
     public static Score map(ScoreUpdateForm form, Score score){
         score.setSubjectName(form.getName_subject());
+        score.setUser(score.getUser());
         score.setScore(form.getScore());
         return score;
     }

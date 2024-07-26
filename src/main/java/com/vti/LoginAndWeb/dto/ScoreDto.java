@@ -13,6 +13,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 @Getter
 @Setter
 public class ScoreDto extends RepresentationModel<ScoreDto> {
+
     private Long id;
     private String subjectName;
 
