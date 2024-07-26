@@ -12,20 +12,27 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class UserServiceImp implements UserService {
+public class UserServiceImp implements UserService, UserDetailsService {
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public UserDto create(UserCreateForm form) {
         User user = UserMapper.map(form);
+        var encodedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
         var savedUser = userRepository.save(user);
         return UserMapper.map(savedUser);
     }
@@ -61,4 +68,15 @@ public class UserServiceImp implements UserService {
         userRepository.deleteByUsername(username);
     }
 
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        var user = userRepository.findByUsername(username);
+        if(user == null){
+            throw new UsernameNotFoundException(username);
+        }
+        return new org.springframework.security.core.userdetails.User(
+                user.getUsername(),user.getPassword(), AuthorityUtils.NO_AUTHORITIES
+        );
+    }
 }

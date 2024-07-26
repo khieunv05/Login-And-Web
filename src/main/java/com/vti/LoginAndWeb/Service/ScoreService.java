@@ -20,4 +20,5 @@ public interface ScoreService {
 
     ScoreDto findById(Long id);
 
+
 }
