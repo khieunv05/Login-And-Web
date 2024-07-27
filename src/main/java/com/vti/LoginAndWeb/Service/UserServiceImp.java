@@ -1,9 +1,11 @@
 package com.vti.LoginAndWeb.Service;
 
+import com.vti.LoginAndWeb.Entity.Role;
 import com.vti.LoginAndWeb.Entity.User;
 import com.vti.LoginAndWeb.Form.UserCreateForm;
 import com.vti.LoginAndWeb.Form.UserFilterForm;
 import com.vti.LoginAndWeb.Form.UserUpdateForm;
+import com.vti.LoginAndWeb.Repository.RoleRepository;
 import com.vti.LoginAndWeb.Repository.UserRepository;
 import com.vti.LoginAndWeb.dto.UserDto;
 import com.vti.LoginAndWeb.mapper.UserMapper;
@@ -12,7 +14,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -21,11 +25,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @AllArgsConstructor
 public class UserServiceImp implements UserService, UserDetailsService {
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Override
@@ -33,6 +39,8 @@ public class UserServiceImp implements UserService, UserDetailsService {
         User user = UserMapper.map(form);
         var encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
+        var role = roleRepository.findByType(Role.Type.USER);
+        user.setRoles(Set.of(role));
         var savedUser = userRepository.save(user);
         return UserMapper.map(savedUser);
     }
@@ -75,8 +83,13 @@ public class UserServiceImp implements UserService, UserDetailsService {
         if(user == null){
             throw new UsernameNotFoundException(username);
         }
+        var authorities = new ArrayList<GrantedAuthority>();
+        for (var role : user.getRoles()) {
+            var authority = new SimpleGrantedAuthority(role.getType().toString());
+            authorities.add(authority);
+        }
         return new org.springframework.security.core.userdetails.User(
-                user.getUsername(),user.getPassword(), AuthorityUtils.NO_AUTHORITIES
+                user.getUsername(),user.getPassword(), authorities
         );
     }
 }

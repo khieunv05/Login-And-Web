@@ -20,6 +20,8 @@ public class SecurityConfiguration {
         http.csrf(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(customize->customize
+                        .requestMatchers(HttpMethod.DELETE)
+                        .hasAuthority("SCOPE_ADMIN")
                         .requestMatchers(HttpMethod.POST,"/api/v1/users")
                         .permitAll()
                         .anyRequest()
@@ -27,7 +29,9 @@ public class SecurityConfiguration {
                 )
                 .oauth2ResourceServer(customizer->customizer.jwt(Customizer.withDefaults()))
                 .sessionManagement(customizer->customizer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .exceptionHandling(customizer->customizer.authenticationEntryPoint(errorHandler))
+                .exceptionHandling(customizer->customizer.authenticationEntryPoint(errorHandler)
+                        .accessDeniedHandler(errorHandler)
+                )
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .with(new JwtLoginConfigurer(),Customizer.withDefaults());
         return http.build();
